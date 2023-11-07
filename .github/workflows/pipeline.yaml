@@ -51,7 +51,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan   -var="prefix=$PREFIX" -var="image=$IMAGE" -var="alarm_email=$NOTIFICATION_MAIL"  -no-color
+        run: terraform plan  -var="alarm_email=$NOTIFICATION_MAIL"  -no-color
         continue-on-error: true
         working-directory: ${{env.working-directory}}
 
