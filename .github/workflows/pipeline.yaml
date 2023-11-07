@@ -38,7 +38,7 @@ jobs:
       AWS_REGION: eu-west-1
       IMAGE: 244530008913.dkr.ecr.eu-west-1.amazonaws.com/mada060:latest
       PREFIX: mariusflores
-      WORKDIR: ../../infra
+      WORKDIR: ./infra
  #    TF_LOG: trace
     steps:
       - uses: actions/checkout@v3
