@@ -39,6 +39,7 @@ jobs:
       AWS_REGION: eu-west-1
       IMAGE: 244530008913.dkr.ecr.eu-west-1.amazonaws.com/mada060:latest
       PREFIX: mariusflores
+      working-directory: ./infra
  #    TF_LOG: trace
     steps:
       - uses: actions/checkout@v3
@@ -48,11 +49,14 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
+        working-directory: ${{env.working-directory}}
 
       - name: Terraform Plan
         id: plan
         run: terraform plan   -var="prefix=$PREFIX" -var="image=$IMAGE"  -no-color
         continue-on-error: true
+        working-directory: ${{env.working-directory}}
+
 
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'
@@ -61,4 +65,4 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -var="prefix=$PREFIX" -var="image=$IMAGE"  -auto-approve
-    working-directory: ./infra
+        working-directory: ./infra
